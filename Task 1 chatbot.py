@@ -1,4 +1,5 @@
 import re
+import datetime
 
 class Chatbot:
     def __init__(self):
@@ -13,13 +14,13 @@ class Chatbot:
             (re.compile(r'what is your favourite food', re.IGNORECASE), "I don't like eating I'm a bot,obviously."),
 
             # If the user says "what's the time?", the chatbot responds with the current time.
-            (re.compile(r'what is the time', re.IGNORECASE), lambda : f"The time is {datetime.now().strftime('%H:%M:%S')}."),
+            (re.compile(r'what is the time', re.IGNORECASE), lambda: f"The time is {datetime.datetime.now().strftime('%H:%M:%S')}."),
         ]
 
     def respond(self, user_input):
         for rule, response in self.rules:
             if rule.match(user_input):
-                return response
+                return response()
         return "I don't understand."
 
 if __name__ == '__main__':
